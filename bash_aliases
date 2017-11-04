@@ -51,18 +51,22 @@ case $OSTYPE in
      else
        alias open=xdg.open
      fi
+     alias topc='top -o %CPU' 
      alias topm='top -o %MEM' 
      ;;
   darwin*)
+     alias topc='top -o cpu' 
      alias topm='top -o mem' 
      ;;
 esac
 
 # Simple .hostname sssshortcut
-for node in $(awk '/^Host /{print $2}' .ssh/config);
-do
- alias .$node="ssh $node"
-done
+if [ -r $HOME/.ssh/config ] ; then
+  for node in $(awk '/^Host /{print $2}' $HOME/.ssh/config);
+  do
+    alias .$node="ssh $node"
+  done
+fi
 
 alias more=less
 
